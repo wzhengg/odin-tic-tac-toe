@@ -24,3 +24,7 @@ const GameBoard = (function() {
         checkWin
     };
 })();
+
+function playerFactory(name, marker) {
+    return { name, marker };
+};
