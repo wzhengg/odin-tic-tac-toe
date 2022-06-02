@@ -15,10 +15,10 @@ const GameBoard = (function() {
         ];
     };
     const placeX = (r, c) => {
-        // TODO
+        board[r][c] = 'X';
     };
     const placeO = (r, c) => {
-        // TODO
+        board[r][c] = 'O';
     };
     const checkWin = () => {
         // TODO
