@@ -8,7 +8,11 @@ const GameBoard = (function() {
         return board;
     }
     const clearBoard = () => {
-        // TODO
+        board = [
+            [null, null, null],
+            [null, null, null],
+            [null, null, null]
+        ];
     };
     const placeX = (r, c) => {
         // TODO
