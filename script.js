@@ -4,6 +4,9 @@ const GameBoard = (function() {
         [null, null, null],
         [null, null, null]
     ];
+    const getBoard = () => {
+        return board;
+    }
     const clearBoard = () => {
         // TODO
     };
@@ -17,7 +20,7 @@ const GameBoard = (function() {
         // TODO
     };
     return {
-        board,
+        getBoard,
         clearBoard,
         placeX,
         placeO,
