@@ -14,11 +14,8 @@ const GameBoard = (function() {
             [null, null, null]
         ];
     };
-    const placeX = (r, c) => {
-        board[r][c] = 'X';
-    };
-    const placeO = (r, c) => {
-        board[r][c] = 'O';
+    const placeMarker = (r, c, marker) => {
+        board[r][c] = marker;
     };
     const checkStatus = (player1, player2) => {
         // Check rows and columns
@@ -64,8 +61,7 @@ const GameBoard = (function() {
     return {
         getBoard,
         clearBoard,
-        placeX,
-        placeO,
+        placeMarker,
         checkStatus
     };
 })();
