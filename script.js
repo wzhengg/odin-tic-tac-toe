@@ -14,6 +14,9 @@ const GameBoard = (function() {
             [null, null, null]
         ];
     };
+    const isEmptySpot = (r, c) => {
+        return board[r][c] === null;
+    };
     const placeMarker = (r, c, marker) => {
         board[r][c] = marker;
     };
@@ -61,6 +64,7 @@ const GameBoard = (function() {
     return {
         getBoard,
         clearBoard,
+        isEmptySpot,
         placeMarker,
         checkStatus
     };
