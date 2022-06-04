@@ -97,3 +97,85 @@ const gameBoard = (function() {
 function playerFactory(name, marker) {
     return { name, marker };
 };
+
+const gameController = (function() {
+    let _p1 = playerFactory('Player 1', 'X');
+    let _p2 = playerFactory('Player 2', 'O');
+
+    let _turn = _p1;
+
+    const startGame = () => {
+        gameBoard.clearBoard();
+        _turn = _p1;
+        displayController.renderBoard();
+        displayController.bindSpots();
+    };
+
+    const _changeTurn = () => {
+        if (_turn === _p1) _turn = _p2;
+        else _turn = _p1;
+    };
+    
+    const playTurn = (e) => {
+        const r = e.target.getAttribute('data-row');
+        const c = e.target.getAttribute('data-col');
+
+        if (!gameBoard.isEmptySpot(r, c)) return;
+
+        gameBoard.placeMarker(r, c, _turn.marker);
+        displayController.renderMarker(r, c);
+
+        _changeTurn();
+
+        const status = gameBoard.checkStatus(_p1, _p2); // remove later
+        if (gameBoard.checkStatus(_p1, _p2) !== null) {
+            displayController.unBindSpots();
+            console.log(status); // remove later
+        }
+    };
+    
+    return {
+        startGame,
+        playTurn
+    }
+})();
+
+const displayController = (function() {
+    const _boardElement = document.querySelector('#game-board');
+    const _spots = _boardElement.querySelectorAll('div');
+
+    const bindSpots = () => {
+        _spots.forEach(spot => {
+            spot.addEventListener('click', gameController.playTurn);
+        });
+    };
+
+    const unBindSpots = () => {
+        _spots.forEach(spot => {
+            spot.removeEventListener('click', gameController.playTurn);
+        });
+    };
+
+    const renderBoard = () => {
+        for (let r = 0; r < 3; r++) {
+            for (let c = 0; c < 3; c++) {
+                renderMarker(r, c);
+            }
+        }
+    };
+
+    const renderMarker = (r, c) => {
+        const board = gameBoard.getBoard();
+        const spot = _boardElement.querySelector(`[data-row="${r}"][data-col="${c}"]`);
+
+        if (board[r][c] === null) spot.textContent = '';
+        else spot.textContent = board[r][c];
+    };
+
+    return {
+        bindSpots,
+        unBindSpots,
+        renderBoard,
+        renderMarker
+    };
+})();
