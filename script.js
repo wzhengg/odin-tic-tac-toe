@@ -39,12 +39,12 @@ const GameBoard = (function() {
 
         // Check diagonals
 
-        if (board[0][0] === board[1][1] && board[1][1] === board[2][2]) {
+        if (board[0][0] !== null && board[0][0] === board[1][1] && board[1][1] === board[2][2]) {
             if (board[0][0] === player1.marker) return player1.marker;
             else return player2.marker;
         }
 
-        if (board[0][2] === board[1][1] && board[1][1] === board[2][0]) {
+        if (board[0][2] !== null && board[0][2] === board[1][1] && board[1][1] === board[2][0]) {
             if (board[0][2] === player1.marker) return player1.marker;
             else return player2.marker;
         }
