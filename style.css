@@ -1,0 +1,30 @@
+:root {
+    --game-board-size: 70%;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+}
+
+#game-board {
+    place-self: center center;
+    height: var(--game-board-size);
+    width: var(--game-board-size);
+    background-color: black;
+    display: grid;
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+    gap: 3px;
+}
+
+#game-board > div {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
