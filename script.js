@@ -26,7 +26,7 @@ const gameBoard = (function() {
     };
 
     const checkStatus = (p1, p2) => {
-        const rowStatus = _checkRows(p1, p1);
+        const rowStatus = _checkRows(p1, p2);
         const colStatus = _checkColumns(p1, p2);
         const diagonalStatus = _checkDiagonals(p1, p2);
 
