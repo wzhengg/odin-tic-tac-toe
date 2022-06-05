@@ -12,6 +12,11 @@ body {
     grid-template-columns: 1fr 2fr 1fr;
 }
 
+.middle-container {
+    display: grid;
+    grid-template-rows: 1fr 6fr 1fr;
+}
+
 #game-board {
     place-self: center center;
     height: var(--game-board-size);
