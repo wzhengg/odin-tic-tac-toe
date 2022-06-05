@@ -109,6 +109,7 @@ const gameController = (function() {
         _turn = _p1;
         displayController.renderBoard();
         displayController.bindSpots();
+        displayController.displayTurn();
     };
 
     const _changeTurn = () => {
@@ -127,20 +128,29 @@ const gameController = (function() {
 
         _changeTurn();
 
-        const status = gameBoard.checkStatus(_p1, _p2); // remove later
-        if (gameBoard.checkStatus(_p1, _p2) !== null) {
+        const status = gameBoard.checkStatus(_p1, _p2);
+        if (status !== null) {
             displayController.unBindSpots();
-            console.log(status); // remove later
+            displayController.displayStatus(status);
+            return;
         }
+
+        displayController.displayTurn();
+    };
+
+    const getTurn = () => {
+        return _turn;
     };
     
     return {
         startGame,
-        playTurn
+        playTurn,
+        getTurn
     }
 })();
 
 const displayController = (function() {
+    const _status = document.querySelector('.middle-container > .status');
     const _boardElement = document.querySelector('#game-board');
     const _spots = _boardElement.querySelectorAll('div');
 
@@ -172,6 +182,19 @@ const displayController = (function() {
         else spot.textContent = board[r][c];
     };
 
+    const displayTurn = () => {
+        const turn = gameController.getTurn();
+        _status.textContent = `${turn.name}'s turn`;
+    };
+
+    const displayStatus = (status) => {
+        if (status === 'Tie') {
+            _status.textContent = 'Tie';
+        } else {
+            _status.textContent = `${status.name} wins!`;
+        }
+    };
+
     const bindRestartButton = () => {
         const restartButton = document.querySelector('.middle-container > div:last-child > button');
         restartButton.addEventListener('click', gameController.startGame);
@@ -182,6 +205,8 @@ const displayController = (function() {
         unBindSpots,
         renderBoard,
         renderMarker,
+        displayTurn,
+        displayStatus,
         bindRestartButton
     };
 })();
