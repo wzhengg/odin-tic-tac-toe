@@ -172,10 +172,21 @@ const displayController = (function() {
         else spot.textContent = board[r][c];
     };
 
+    const bindRestartButton = () => {
+        const restartButton = document.querySelector('.middle-container > div:last-child > button');
+        restartButton.addEventListener('click', gameController.startGame);
+    };
+
     return {
         bindSpots,
         unBindSpots,
         renderBoard,
-        renderMarker
+        renderMarker,
+        bindRestartButton
     };
+})();
+
+(function() {
+    gameController.startGame();
+    displayController.bindRestartButton();
 })();
