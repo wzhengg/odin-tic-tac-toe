@@ -22,6 +22,10 @@ body {
     place-items: center center;
 }
 
+.middle-container > .status {
+    font-size: 2rem;
+}
+
 #game-board {
     height: var(--game-board-size);
     width: var(--game-board-size);
