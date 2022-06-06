@@ -112,6 +112,14 @@ const gameController = (function() {
         return _p2;
     };
 
+    const setP1Name = (newName) => {
+        _p1.name = newName;
+    };
+
+    const setP2Name = (newName) => {
+        _p2.name = newName;
+    };
+
     const startGame = () => {
         gameBoard.clearBoard();
         _turn = _p1;
@@ -156,6 +164,8 @@ const gameController = (function() {
     return {
         getP1,
         getP2,
+        setP1Name,
+        setP2Name,
         startGame,
         playTurn,
         getTurn
@@ -239,6 +249,38 @@ const displayController = (function() {
         restartButton.addEventListener('click', gameController.startGame);
     };
 
+    const bindP1SetButton = () => {
+        const p1SetButton = document.querySelector('.left-container button');
+        const p1Input = document.querySelector('.left-container input');
+
+        p1SetButton.addEventListener('click', () => {
+            gameController.setP1Name(p1Input.value);
+
+            const status = gameBoard.checkStatus(gameController.getP1(), gameController.getP2());
+            if (status === null) {
+                displayTurn();
+            } else {
+                displayStatus(status);
+            }
+        });
+    };
+
+    const bindP2SetButton = () => {
+        const p2SetButton = document.querySelector('.right-container button');
+        const p2Input = document.querySelector('.right-container input');
+
+        p2SetButton.addEventListener('click', () => {
+            gameController.setP2Name(p2Input.value);
+            
+            const status = gameBoard.checkStatus(gameController.getP1(), gameController.getP2());
+            if (status === null) {
+                displayTurn();
+            } else {
+                displayStatus(status);
+            }
+        });
+    };
+
     return {
         bindSpots,
         unBindSpots,
@@ -248,11 +290,15 @@ const displayController = (function() {
         highlightTurn,
         removeTurnHighlight,
         displayStatus,
-        bindRestartButton
+        bindRestartButton,
+        bindP1SetButton,
+        bindP2SetButton
     };
 })();
 
 (function() {
     gameController.startGame();
     displayController.bindRestartButton();
+    displayController.bindP1SetButton();
+    displayController.bindP2SetButton();
 })();
