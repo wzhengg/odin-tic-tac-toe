@@ -104,12 +104,21 @@ const gameController = (function() {
 
     let _turn = _p1;
 
+    const getP1 = () => {
+        return _p1;
+    };
+
+    const getP2 = () => {
+        return _p2;
+    };
+
     const startGame = () => {
         gameBoard.clearBoard();
         _turn = _p1;
         displayController.renderBoard();
         displayController.bindSpots();
         displayController.displayTurn();
+        displayController.highlightTurn(_turn);
     };
 
     const _changeTurn = () => {
@@ -132,10 +141,12 @@ const gameController = (function() {
         if (status !== null) {
             displayController.unBindSpots();
             displayController.displayStatus(status);
+            displayController.removeTurnHighlight();
             return;
         }
 
         displayController.displayTurn();
+        displayController.highlightTurn(_turn);
     };
 
     const getTurn = () => {
@@ -143,6 +154,8 @@ const gameController = (function() {
     };
     
     return {
+        getP1,
+        getP2,
         startGame,
         playTurn,
         getTurn
@@ -153,6 +166,8 @@ const displayController = (function() {
     const _status = document.querySelector('.middle-container > .status');
     const _boardElement = document.querySelector('#game-board');
     const _spots = _boardElement.querySelectorAll('div');
+    const _leftImg = document.querySelector('.left-container > img');
+    const _rightImg = document.querySelector('.right-container > img');
 
     const bindSpots = () => {
         _spots.forEach(spot => {
@@ -187,6 +202,21 @@ const displayController = (function() {
         _status.textContent = `${turn.name}'s turn`;
     };
 
+    const highlightTurn = (turn) => {
+        if (turn === gameController.getP1()) {
+            _rightImg.classList.remove('turn');
+            _leftImg.classList.add('turn');
+        } else {
+            _leftImg.classList.remove('turn');
+            _rightImg.classList.add('turn');
+        }
+    };
+
+    const removeTurnHighlight = () => {
+        _leftImg.classList.remove('turn');
+        _rightImg.classList.remove('turn');
+    };
+
     const displayStatus = (status) => {
         if (status === 'Tie') {
             _status.textContent = 'Tie';
@@ -206,6 +236,8 @@ const displayController = (function() {
         renderBoard,
         renderMarker,
         displayTurn,
+        highlightTurn,
+        removeTurnHighlight,
         displayStatus,
         bindRestartButton
     };
