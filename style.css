@@ -46,6 +46,10 @@ body {
     align-items: center;
 }
 
+#game-board > div:hover {
+    background-color: #eff6ff;
+}
+
 .middle-container > div:last-child > button {
     background-color: var(--blue);
     color: var(--white-text);
