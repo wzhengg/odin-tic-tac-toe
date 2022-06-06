@@ -193,8 +193,17 @@ const displayController = (function() {
         const board = gameBoard.getBoard();
         const spot = _boardElement.querySelector(`[data-row="${r}"][data-col="${c}"]`);
 
-        if (board[r][c] === null) spot.textContent = '';
-        else spot.textContent = board[r][c];
+        if (board[r][c] === null) {
+            spot.textContent = '';
+        } else if (board[r][c] === 'X') {
+            const marker = document.createElement('img');
+            marker.setAttribute('src', './img/alpha-x.svg');
+            spot.appendChild(marker);
+        } else {
+            const marker = document.createElement('img');
+            marker.setAttribute('src', './img/alpha-o.svg');
+            spot.appendChild(marker);
+        }
     };
 
     const displayTurn = () => {

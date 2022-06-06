@@ -3,6 +3,7 @@
 :root {
     font-size: 16px;
     --game-board-size: 70%;
+    --marker-size: 50%;
     --player-avatar-size: 150px;
     --white-text: #f5f5f5;
     --blue: #60a5fa;
@@ -48,6 +49,11 @@ body {
 
 #game-board > div:hover {
     background-color: #eff6ff;
+}
+
+#game-board img {
+    height: var(--marker-size);
+    width: var(--marker-size);
 }
 
 .middle-container > div:last-child > button {
